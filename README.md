@@ -1,4 +1,4 @@
-### Score Tracking App
+# Score Tracking App
 
 This is a small Application designed, to help keep track of a score while playing Ping Pong, Volleyball etc.
 
