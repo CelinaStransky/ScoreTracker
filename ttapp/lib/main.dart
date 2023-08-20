@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           title: Text(
-            lang == 'en' ? appBarTitleEN : appBarTitleDE,
+            languageMap['appBarTitle']?[currLang],
             style: TextStyle(
               fontSize: 40,
             ),
@@ -273,7 +273,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Text('Team B'),
                                   TextField(
                                     decoration: InputDecoration(
-                                        prefixIcon: Icon(Icons.people)),
+                                      prefixIcon: Icon(Icons.people),
+                                    ),
                                     onChanged: (String value) async {
                                       setState(() {
                                         teamB = value;
@@ -296,7 +297,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: 100,
                               child: Center(
                                 child: Text(
-                                  lang == 'en' ? TeamnamesEN : TeamNamesDE,
+                                  languageMap['teamNames']?[currLang],
                                   style: TextStyle(fontSize: 40),
                                 ),
                               ),
@@ -307,8 +308,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           onTap: () => showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                              title: Text(
-                                  lang == 'en' ? ColorSchemeEN : ColorSchemeDE),
+                              title:
+                                  Text(languageMap['colorScheme']?[currLang]),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -323,8 +324,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     showLabel: false,
                                   ),
                                   TextButton(
-                                    child: Text(
-                                        lang == 'en' ? selectEN : selectDE),
+                                    child:
+                                        Text(languageMap['select']?[currLang]),
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                   ),
@@ -338,7 +339,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: 100,
                               child: Center(
                                 child: Text(
-                                  lang == 'en' ? ColorSchemeEN : ColorSchemeDE,
+                                  languageMap['colorScheme']?[currLang],
                                   style: TextStyle(fontSize: 40),
                                 ),
                               ),
@@ -349,32 +350,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           onTap: () => showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                              title:
-                                  Text(lang == 'en' ? LanguageEN : LanguageDE),
+                              title: Text(languageMap['language']?[currLang]),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   RadioListTile(
-                                    title: Text(
-                                        lang == 'en' ? EnglishEN : EnglishDE),
-                                    value: 'en',
-                                    groupValue: lang,
+                                    title: Text('English'),
+                                    value: en,
+                                    groupValue: currLang,
                                     onChanged: (value) {
                                       setState(() {
                                         Navigator.pop(context);
-                                        lang = value!;
+                                        currLang = value!;
                                       });
                                     },
                                   ),
                                   RadioListTile(
-                                    title: Text(
-                                        lang == 'en' ? GermanEN : GermanDE),
-                                    value: 'de',
-                                    groupValue: lang,
+                                    title: Text('Deutsch'),
+                                    value: de,
+                                    groupValue: currLang,
                                     onChanged: (value) {
                                       setState(() {
                                         Navigator.pop(context);
-                                        lang = value!;
+                                        currLang = value!;
                                       });
                                     },
                                   ),
@@ -387,15 +385,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: SizedBox(
                               height: 100,
                               child: Center(
-                                child: lang == 'en'
-                                    ? Text(
-                                        LanguageEN,
-                                        style: TextStyle(fontSize: 40),
-                                      )
-                                    : Text(
-                                        LanguageDE,
-                                        style: TextStyle(fontSize: 40),
-                                      ),
+                                child: Text(languageMap['language']?[currLang],
+                                    style: TextStyle(fontSize: 40)),
                               ),
                             ),
                           ),
@@ -409,11 +400,11 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            label: lang == 'en' ? homeEN : homeDE,
+            label: languageMap['home']?[currLang],
             icon: Icon(Icons.home_filled),
           ),
           BottomNavigationBarItem(
-            label: lang == 'en' ? settingsEN : settingsDE,
+            label: languageMap['settings']?[currLang],
             icon: Icon(Icons.settings),
           ),
         ],

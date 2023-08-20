@@ -16,6 +16,11 @@ bool layoutVertical = true;
 
 String lang = 'en';
 
+int language = 0;
+
+int en = 0;
+int de = 1;
+
 Color darker(Color color) {
   var r = (color.red * 0.3).round();
   var g = (color.green * 0.3).round();

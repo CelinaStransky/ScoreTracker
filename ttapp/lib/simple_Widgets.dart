@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 import 'language_settings.dart';
 import 'simple_functions.dart';
 
@@ -92,8 +91,7 @@ Widget resetButton(Size size , VoidCallback onPressed) {
       ),
     ),
     onPressed: onPressed,
-    child: Text(
-      lang == 'en' ? resetButtonEN : resetButtonDE,
+    child: Text(languageMap['reset']?[currLang],
       style: TextStyle(
         color: verylight(mainColor),
         fontSize: 20,
@@ -101,3 +99,5 @@ Widget resetButton(Size size , VoidCallback onPressed) {
     ),
   );
 }
+
+

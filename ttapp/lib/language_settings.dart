@@ -1,29 +1,21 @@
-String appBarTitleEN = 'Score Tracker';
-String appBarTitleDE = 'Spielstandzähler';
+List appBarTitle = ['Score Tracker', 'Spielstandszähler'];
+List reset = ['reset', 'zurücksetzen'];
+List home = ['Home', 'Heimat'];
+List settings = ['Settings', 'Einstellungen'];
+List teamNames = ['Team Names', 'Team Namen'];
+List colorScheme = ['Color Scheme', 'Farbschema'];
+List select = ['Select', 'Fertig'];
+List languageList = ['Language', 'Sprache'];
 
-String resetButtonEN = 'reset';
-String resetButtonDE = 'zurücksetzen';
+int currLang = 0;
 
-String homeEN = 'Home';
-String homeDE = 'Heimat';
-
-String settingsEN = 'Settings';
-String settingsDE = 'Einstellungen';
-
-String TeamnamesEN = 'Team Names';
-String TeamNamesDE = 'Team Namen';
-
-String ColorSchemeEN = 'Color Scheme';
-String ColorSchemeDE = 'Farbschema';
-
-String selectEN = 'Select';
-String selectDE = 'Fertig';
-
-String LanguageEN = 'Language';
-String LanguageDE = 'Sprache';
-
-String EnglishEN = 'English';
-String EnglishDE = 'Englisch';
-
-String GermanEN = 'German';
-String GermanDE = 'Deutsch';
+Map<String, List> languageMap = {
+  'appBarTitle': appBarTitle,
+  'reset': reset,
+  'home': home,
+  'settings': settings,
+  'teamNames': teamNames,
+  'colorScheme': colorScheme,
+  'select': select,
+  'language': languageList,
+};
