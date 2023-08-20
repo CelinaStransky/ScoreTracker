@@ -129,7 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                TeamAName(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left : 8.0),
+                                  child: TeamAName(),
+                                ),
                                 TeamACounter(),
                                 Padding(
                                     padding: const EdgeInsets.all(15.0),
@@ -146,7 +149,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                TeamBName(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right : 8.0),
+                                  child: TeamBName(),
+                                ),
                                 TeamBCounter(),
                                 Padding(
                                     padding: const EdgeInsets.all(15.0),
@@ -253,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           onTap: () => showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Team Names'),
+                              title: Text(languageMap['teamNames']?[currLang]),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -265,7 +271,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     onChanged: (String value) async {
                                       setState(
                                         () {
-                                          teamA = value;
+                                          if (value.length > 20) {
+                                            teamA = value.substring(0, 19);
+                                          }
+                                          else teamA = value;
                                         },
                                       );
                                     },
@@ -277,7 +286,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     onChanged: (String value) async {
                                       setState(() {
-                                        teamB = value;
+                                        if (value.length > 20) {
+                                          teamB = value.substring(0, 19);
+                                        }
+                                        else teamB = value;
                                       });
                                     },
                                   ),
