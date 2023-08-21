@@ -80,7 +80,7 @@ Widget MinusButton(Size size, VoidCallback onPressed) {
   );
 }
 
-Widget resetButton(Size size , VoidCallback onPressed) {
+Widget resetButton(Size size, VoidCallback onPressed) {
   return FilledButton(
     style: FilledButton.styleFrom(
       minimumSize: size,
@@ -91,7 +91,8 @@ Widget resetButton(Size size , VoidCallback onPressed) {
       ),
     ),
     onPressed: onPressed,
-    child: Text(languageMap['reset']?[currLang],
+    child: Text(
+      languageMap['reset']?[currLang],
       style: TextStyle(
         color: verylight(mainColor),
         fontSize: 20,
@@ -100,4 +101,23 @@ Widget resetButton(Size size , VoidCallback onPressed) {
   );
 }
 
-
+Widget TeamsButton(Size size, VoidCallback onPressed) {
+  return FilledButton(
+    style: FilledButton.styleFrom(
+      minimumSize: size,
+      backgroundColor: mainColor,
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+    ),
+    onPressed: onPressed,
+    child: Text(
+      languageMap['switchCompleted']?[currLang],
+      style: TextStyle(
+        color: verylight(mainColor),
+        fontSize: 20,
+      ),
+    ),
+  );
+}

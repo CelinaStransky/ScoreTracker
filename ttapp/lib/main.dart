@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'language_settings.dart';
 import 'simple_Widgets.dart';
 import 'simple_functions.dart';
@@ -55,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(
       () {
         counterA++;
+        if (teamSwitchEnabled && (counterA + counterB) % changeAfter == 0) {
+          widget.setMainColor(inverse(mainColor));
+        }
       },
     );
   }
@@ -72,6 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(
       () {
         counterB++;
+        if (teamSwitchEnabled && (counterA + counterB) % changeAfter == 0) {
+          widget.setMainColor(inverse(mainColor));
+        }
       },
     );
   }
@@ -92,10 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
         counterA = 0;
       },
     );
-  }
-
-  void changeColor(Color color) {
-    setState(() => pickerColor = color);
   }
 
   @override
@@ -130,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left : 8.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: TeamAName(),
                                 ),
                                 TeamACounter(),
@@ -150,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(right : 8.0),
+                                  padding: const EdgeInsets.only(right: 8.0),
                                   child: TeamBName(),
                                 ),
                                 TeamBCounter(),
@@ -170,6 +173,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: const EdgeInsets.all(30.0),
                         child: resetButton(Size(150, 50), reset),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: TeamsButton(Size(200, 50), () {
+                          if (themeColor != mainColor) {
+                            widget.setMainColor(themeColor);
+                          }
+                        }),
                       ),
                     ],
                   )
@@ -227,6 +238,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.all(30.0),
                                   child: resetButton(Size(100, 100), reset),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: TeamsButton(Size(100, 50), () {
+                                    if (themeColor != mainColor) {
+                                      widget.setMainColor(themeColor);
+                                    }
+                                  }),
+                                ),
                               ],
                             ),
                             Expanded(
@@ -273,8 +292,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                         () {
                                           if (value.length > 20) {
                                             teamA = value.substring(0, 19);
-                                          }
-                                          else teamA = value;
+                                          } else
+                                            teamA = value;
                                         },
                                       );
                                     },
@@ -288,8 +307,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       setState(() {
                                         if (value.length > 20) {
                                           teamB = value.substring(0, 19);
-                                        }
-                                        else teamB = value;
+                                        } else
+                                          teamB = value;
                                       });
                                     },
                                   ),
@@ -316,8 +335,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => showDialog<String>(
+                        TextButton(
+                          onPressed: () => showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
                               title:
@@ -328,8 +347,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ColorPicker(
                                     pickerColor: mainColor,
                                     onColorChanged: (color) => setState(() {
-                                      changeColor(color);
                                       mainColor = color;
+                                      themeColor = color;
                                       widget.setMainColor(color);
                                     }),
                                     enableAlpha: false,
@@ -358,8 +377,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => showDialog<String>(
+                        TextButton(
+                          onPressed: () => showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
                               title: Text(languageMap['language']?[currLang]),
@@ -399,6 +418,129 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Center(
                                 child: Text(languageMap['language']?[currLang],
                                     style: TextStyle(fontSize: 40)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () => showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title:
+                                  Text(languageMap['switchTeams']?[currLang]),
+                              content: StatefulBuilder(
+                                builder: (BuildContext context,
+                                    StateSetter setState) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(languageMap[
+                                                        'switchTeamsAlert']
+                                                    ?[currLang]),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Switch(
+                                                    activeColor: mainColor,
+                                                    value: teamSwitchEnabled,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        teamSwitchEnabled =
+                                                            value;
+                                                      });
+                                                    }),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(languageMap[
+                                                        'switchTeamAfter']
+                                                    ?[currLang])
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                NumberPicker(
+                                                    minValue: 0,
+                                                    maxValue: 100,
+                                                    value: changeAfter,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        changeAfter = value;
+                                                      });
+                                                    }),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () => showDialog<String>(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                title: Text(languageMap['hint']
+                                                    ?[currLang]),
+                                                content: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(languageMap[
+                                                            'explanationTeamSwitch']
+                                                        ?[currLang])
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                                languageMap['hint']?[currLang]),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          child: Card(
+                            elevation: 20,
+                            child: SizedBox(
+                              height: 100,
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(languageMap['switchTeams']?[currLang],
+                                        style: TextStyle(fontSize: 40)),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
