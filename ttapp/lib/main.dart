@@ -19,14 +19,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Color mainColor;
-
-  @override
-  void initState() {
-    super.initState();
-    mainColor = Color.fromARGB(255, 205, 175, 225);
-  }
-
   void setMainColor(Color color) async {
     setState(
       () {
@@ -318,7 +310,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
             // Settings page
             : SettingsPage(
-                mainColor: widget.mainColor, setMainColor: widget.setMainColor),
+                mainColor: widget.mainColor,
+                setMainColor: widget.setMainColor,
+                currentLanguage: currLang,
+              ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [

@@ -18,6 +18,9 @@ List hint = ['Hint', 'Hinweis'];
 
 int currLang = 0;
 
+int en = 0;
+int de = 1;
+
 Map<String, List> languageMap = {
   'appBarTitle': appBarTitle,
   'reset': reset,

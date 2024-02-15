@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
-//import 'dart:async';
 
 
 // current main color of the application, is inversed, when user has teamswitch enabled, and points are met
@@ -16,14 +14,7 @@ int currentIndex = 0;
 String teamA = 'Team A';
 String teamB = 'Team B';
 
-Color pickerColor = mainColor;
-Color currentColor = mainColor;
-
 bool layoutVertical = true;
-
-int language = 0;
-int en = 0;
-int de = 1;
 
 bool teamSwitchEnabled = true;
 int changeAfter = 5;
