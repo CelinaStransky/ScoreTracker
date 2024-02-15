@@ -3,43 +3,43 @@ import 'language_settings.dart';
 import 'global_functions.dart';
 import 'global_variables.dart';
 
-Widget TeamAName() {
+Widget teamAName() {
   return Text(
     teamA,
-    style: TextStyle(
+    style: const TextStyle(
       fontSize: 25,
     ),
   );
 }
 
-Widget TeamBName() {
+Widget teamBName() {
   return Text(
     teamB,
-    style: TextStyle(
+    style: const TextStyle(
       fontSize: 25,
     ),
   );
 }
 
-Widget TeamACounter() {
+Widget teamACounter() {
   return Text(
     '$counterA',
-    style: TextStyle(
+    style: const TextStyle(
       fontSize: 30,
     ),
   );
 }
 
-Widget TeamBCounter() {
+Widget teamBCounter() {
   return Text(
     '$counterB',
-    style: TextStyle(
+    style: const TextStyle(
       fontSize: 30,
     ),
   );
 }
 
-Widget PlusButton(Size size, VoidCallback onPressed) {
+Widget plusButton(Size size, VoidCallback onPressed) {
   return FilledButton(
     style: FilledButton.styleFrom(
       minimumSize: size,
@@ -53,14 +53,14 @@ Widget PlusButton(Size size, VoidCallback onPressed) {
     child: Text(
       '+',
       style: TextStyle(
-        color: Color.fromARGB(255, 14, 97, 14),
+        color: const Color.fromARGB(255, 14, 97, 14),
         fontSize: size.height,
       ),
     ),
   );
 }
 
-Widget MinusButton(Size size, VoidCallback onPressed) {
+Widget minusButton(Size size, VoidCallback onPressed) {
   return FilledButton(
     style: FilledButton.styleFrom(
       minimumSize: size,
@@ -74,7 +74,7 @@ Widget MinusButton(Size size, VoidCallback onPressed) {
     child: Text(
       '-',
       style: TextStyle(
-        color: Color.fromARGB(255, 133, 8, 33),
+        color: const Color.fromARGB(255, 133, 8, 33),
         fontSize: size.height,
       ),
     ),
@@ -102,7 +102,7 @@ Widget resetButton(Size size, VoidCallback onPressed) {
   );
 }
 
-Widget TeamSwitchButton(Size size, VoidCallback onPressed) {
+Widget teamSwitchButton(Size size, VoidCallback onPressed) {
   return FilledButton(
     style: FilledButton.styleFrom(
       minimumSize: size,

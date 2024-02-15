@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//import 'dart:async';
 
 
-// main color, either default, or set by user in setting
+// current main color of the application, is inversed, when user has teamswitch enabled, and points are met
 Color mainColor = Color.fromARGB(255, 205, 175, 225);
-// used for signaling that team switch should be made
+
+// color of the user theme, only changed, when user changes it in the settings
 Color themeColor = Color.fromARGB(255, 205, 175, 225);
 
 int counterA = 0;
@@ -13,8 +16,8 @@ int currentIndex = 0;
 String teamA = 'Team A';
 String teamB = 'Team B';
 
-Color pickerColor = Color.fromARGB(255, 129, 115, 136);
-Color currentColor = Color(0xff443a49);
+Color pickerColor = mainColor;
+Color currentColor = mainColor;
 
 bool layoutVertical = true;
 
