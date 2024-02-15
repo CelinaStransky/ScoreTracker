@@ -1,27 +1,5 @@
 import 'package:flutter/material.dart';
 
-Color mainColor = Color.fromARGB(255, 205, 175, 225);
-Color themeColor = Color.fromARGB(255, 205, 175, 225);
-
-int counterA = 0;
-int counterB = 0;
-int currentIndex = 0;
-
-String teamA = 'Team A';
-String teamB = 'Team B';
-
-Color pickerColor = Color.fromARGB(255, 129, 115, 136);
-Color currentColor = Color(0xff443a49);
-
-bool layoutVertical = true;
-
-int language = 0;
-int en = 0;
-int de = 1;
-
-bool teamSwitchEnabled = true;
-int changeAfter = 5;
-
 Color darker(Color color) {
   var r = (color.red * 0.3).round();
   var g = (color.green * 0.3).round();

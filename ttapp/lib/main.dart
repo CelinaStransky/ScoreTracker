@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'language_settings.dart';
 import 'simple_Widgets.dart';
-import 'simple_functions.dart';
+import 'global_functions.dart';
+import 'global_variables.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,15 +22,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
   void setMainColor(Color color) async {
     setState(
       () {
-        mainColor = color;
+        mainColor = color;  
       },
     );
   }
 
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,8 +50,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage(
-      {super.key, required this.title, required this.setMainColor});
+  const MyHomePage({super.key, required this.title, required this.setMainColor});
   final String title;
   final Function setMainColor; // Accept the function as a parameter
 
@@ -52,6 +59,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  
+
   void incrementCounterA() {
     setState(
       () {
@@ -121,13 +131,19 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Container(
+        
+        //  Current page: Home / Team Scores page
         child: currentIndex == 0
+
+            // Layout of the main page vertical
             ? layoutVertical == true
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         children: [
+
+                          // Left column, for team A
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -139,15 +155,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                 TeamACounter(),
                                 Padding(
                                     padding: const EdgeInsets.all(15.0),
-                                    child: PlusButton(
-                                        Size(120, 80), incrementCounterA)),
+                                    child: PlusButton(Size(120, 80), incrementCounterA)),
                                 Padding(
                                     padding: const EdgeInsets.all(15.0),
-                                    child: MinusButton(
-                                        Size(40, 40), decrementCounterA)),
+                                    child: MinusButton(Size(40, 40), decrementCounterA)),
                               ],
                             ),
                           ),
+
+                          // Right column, for team B
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -159,35 +175,46 @@ class _MyHomePageState extends State<MyHomePage> {
                                 TeamBCounter(),
                                 Padding(
                                     padding: const EdgeInsets.all(15.0),
-                                    child: PlusButton(
-                                        Size(120, 80), incrementCounterB)),
+                                    child: PlusButton(Size(120, 80), incrementCounterB)),
                                 Padding(
                                     padding: const EdgeInsets.all(15.0),
-                                    child: MinusButton(
-                                        Size(40, 40), decrementCounterB)),
+                                    child: MinusButton(Size(40, 40), decrementCounterB)),
                               ],
                             ),
                           ),
                         ],
                       ),
+
+                      // Reset button
                       Padding(
                         padding: const EdgeInsets.all(30.0),
                         child: resetButton(Size(150, 50), reset),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TeamsButton(Size(200, 50), () {
-                          if (themeColor != mainColor) {
-                            widget.setMainColor(themeColor);
-                          }
-                        }),
+
+                      // Button for the team switch hint 
+                      // Is hidden, when teamSwitch is disabled
+                      Visibility(
+                        visible: teamSwitchEnabled,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: TeamSwitchButton(Size(200, 50), () {
+                            if (themeColor != mainColor) {
+                              widget.setMainColor(themeColor);
+                            }
+                          }),
+                        ),
                       ),
                     ],
                   )
+                  
+                
+                // Otherwise: Layout Horozontal, not the default
                 : RotatedBox(
                     quarterTurns: 1,
                     child: Column(
                       children: [
+
+                        // Team names and counters
                         Row(
                           children: [
                             Expanded(
@@ -214,23 +241,28 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ],
                         ),
+                        
+                        
+                        // Buttons for increment and decrement
                         Row(
                           children: [
+                            
+                            // TEAM A
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: PlusButton(
-                                          Size(150, 100), incrementCounterA)),
+                                      child: PlusButton(Size(150, 100), incrementCounterA)),
                                   Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: MinusButton(
-                                          Size(40, 40), decrementCounterA)),
+                                      child: MinusButton(Size(40, 40), decrementCounterA)),
                                 ],
                               ),
                             ),
+                            
+                            // RESET AND TEAMSWITCH
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -238,16 +270,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: const EdgeInsets.all(30.0),
                                   child: resetButton(Size(100, 100), reset),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: TeamsButton(Size(100, 50), () {
-                                    if (themeColor != mainColor) {
-                                      widget.setMainColor(themeColor);
-                                    }
-                                  }),
+                                Visibility(
+                                  visible: teamSwitchEnabled,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: TeamSwitchButton(Size(100, 50), () {
+                                      if (themeColor != mainColor) {
+                                        widget.setMainColor(themeColor);
+                                      }
+                                    }),
+                                  ),
                                 ),
                               ],
                             ),
+                            
+                            // TEAM B
                             Expanded(
                                 child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -269,11 +306,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   )
+                  
+            // Settings page
             : Scaffold(
                 body: LayoutBuilder(
                   builder: (context, constraints) {
                     return ListView(
                       children: <Widget>[
+
+                        // CHANGE TEAM NAMES
                         GestureDetector(
                           onTap: () => showDialog<String>(
                             context: context,
@@ -335,6 +376,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
+
+                        // COLOR SCHEME
                         TextButton(
                           onPressed: () => showDialog<String>(
                             context: context,
@@ -377,6 +420,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
+
+                        // LANGUAGE
                         TextButton(
                           onPressed: () => showDialog<String>(
                             context: context,
@@ -422,6 +467,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
+
+                        // TEAM SWITCH EN-/DISABLE
                         TextButton(
                           onPressed: () => showDialog<String>(
                             context: context,
@@ -551,6 +598,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
       ),
+
+
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -571,6 +620,8 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
       ),
+
+
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
@@ -579,6 +630,8 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           tooltip: 'Layout',
           child: const Icon(Icons.layers_outlined)),
+
+
     );
   }
 }

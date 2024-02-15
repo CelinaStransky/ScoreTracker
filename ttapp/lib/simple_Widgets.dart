@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'language_settings.dart';
-import 'simple_functions.dart';
+import 'global_functions.dart';
+import 'global_variables.dart';
 
 Widget TeamAName() {
   return Text(
@@ -101,7 +102,7 @@ Widget resetButton(Size size, VoidCallback onPressed) {
   );
 }
 
-Widget TeamsButton(Size size, VoidCallback onPressed) {
+Widget TeamSwitchButton(Size size, VoidCallback onPressed) {
   return FilledButton(
     style: FilledButton.styleFrom(
       minimumSize: size,
